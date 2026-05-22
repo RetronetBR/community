@@ -1,0 +1,21 @@
+# Build outputs
+/rnd
+/rnsync
+/rnpeer
+/rnmsg
+/rndctl
+/bin/
+
+# Generated runtime data
+/runtime/
+/go1/
+/df1/
+/client-joao/
+/client-mario/
+
+# Editor and system noise
+*~
+*.swp
+*.swo
+.DS_Store
+core
