@@ -15,6 +15,8 @@ Documentação inicial do projeto:
 - [docs/runtime-layout.md](docs/runtime-layout.md)
 - [docs/roadmap.md](docs/roadmap.md)
 - [docs/contributing.md](docs/contributing.md)
+- [docs/sdk/README.md](docs/sdk/README.md)
+- [docs/research/README.md](docs/research/README.md)
 
 ## Componentes
 

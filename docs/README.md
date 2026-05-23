@@ -34,6 +34,8 @@ O estado atual do MVP cobre:
 - [Runtime](runtime-layout.md)
 - [Roadmap](roadmap.md)
 - [Contribuindo](contributing.md)
+- [RetroNet SDK](sdk/README.md)
+- [Research](research/README.md)
 
 ## Árvore resumida
 
