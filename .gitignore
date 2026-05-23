@@ -18,4 +18,4 @@
 *.swp
 *.swo
 .DS_Store
-core
+/core
