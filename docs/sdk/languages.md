@@ -14,12 +14,16 @@ Definir as linguagens alvo do SDK e os motivos dessa escolha.
 
 ## Por que Pascal importa
 
-Pascal é relevante no meio retro porque há muitos programadores com experiência em Turbo Pascal, Borland Pascal e Delphi inicial.
-Isso amplia a base de colaboradores e facilita a criação de clientes e ferramentas para DOS e ambientes antigos.
+Pascal é relevante no meio retro porque há muitos programadores com
+experiência em Turbo Pascal, Borland Pascal e Delphi inicial.
+
+Isso amplia a base de colaboradores e facilita a criação de clientes e
+ferramentas para DOS e ambientes antigos.
 
 ## Status
 
-A lista de linguagens é uma orientação de ecossistema, não uma obrigatoriedade para todos os módulos.
+A lista de linguagens é uma orientação de ecossistema, não uma
+obrigatoriedade para todos os módulos.
 
 ## Uso futuro
 

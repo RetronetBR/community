@@ -1,24 +1,29 @@
 # DOS
 
+## Status
+
+MS-DOS e FreeDOS são plataformas-alvo centrais para o SDK,
+especialmente para clientes simples, TSRs e interfaces texto.
+
 ## Objetivo
 
 Visão geral de desenvolvimento DOS para o RetroNet SDK.
 
-## Status
-
-MS-DOS e FreeDOS são plataformas-alvo centrais para o SDK, especialmente para clientes simples, TSRs e interfaces texto.
-
 ## Visão geral
 
-Programas para RetroNet em DOS devem ser pequenos, modulares e previsíveis.
+Programas para RetroNet em DOS devem ser pequenos, modulares e
+previsíveis.
+
 A separação entre cliente e agente residente deve ser clara.
 
-O SDK deve favorecer compatibilidade acima de recursos avançados e priorizar chamadas DOS documentadas sempre que possível.
+O SDK deve favorecer compatibilidade acima de recursos avançados e
+priorizar chamadas DOS documentadas sempre que possível.
 
 ## Cuidados
 
 - diferenças entre versões de DOS importam
-- `INT 21h` deve ser tratado com cuidado em contexto residente ou de interrupção
+- `INT 21h` deve ser tratado com cuidado em contexto residente ou de
+  interrupção
 - `Assembly` deve ser usado apenas onde necessário
 - `C` e `Pascal` devem ser preferidos para clientes quando fizer sentido
 - o código deve ser separado por nível de dependência:
@@ -26,6 +31,8 @@ O SDK deve favorecer compatibilidade acima de recursos avançados e priorizar ch
   - dependente de DOS
   - dependente de hardware
   - dependente de Packet Driver
+  - dependente de UI
+  - dependente de áudio
 
 ## Diretrizes
 

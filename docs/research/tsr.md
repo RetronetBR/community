@@ -6,46 +6,32 @@ Pesquisa / arquitetura inicial.
 
 ## Objetivo
 
-- agente residente mínimo para MS-DOS e FreeDOS
-- consulta periódica ao servidor RetroNet
-- notifica o usuário quando houver eventos
-- mantém o cliente leve e modular
+Explicar que o RNTSR é um agente residente para MS-DOS e FreeDOS
+responsável apenas por:
 
-## Ciclo de vida
+- heartbeat
+- polling leve
+- consulta de eventos pendentes
+- notificação temporária
+- estado local mínimo
 
-O RNTSR deve ter fases claramente separadas:
-
-- instalação
-- execução residente
-- remoção segura
-
-Antes de instalar, o agente deve verificar:
-
-- se já existe uma instância carregada
-- se há Packet Driver disponível
-- se a configuração mínima está válida
-- se o ambiente permite rede
-
-Se qualquer pré-condição falhar, a instalação deve abortar sem deixar TSR residente.
-Isso evita TSR zumbi e mantém o sistema previsível.
+O RNTSR não é um cliente completo.
 
 ## O que o RNTSR faz
 
 - verifica sessão
-- heartbeat
-- polling leve
-- consulta de eventos
-- detecção de novidades
-- popup temporário
-- atualização de estado local mínimo
+- consulta eventos
+- exibe popup temporário
+- pode tocar beep futuramente
+- mantém estado mínimo
 - pode expor interface local futura para clientes DOS
 
 ## O que o RNTSR não faz
 
 - não baixa mensagens completas
 - não baixa boards
-- não baixa anexos
 - não processa QWK
+- não baixa anexos
 - não transfere arquivos
 - não substitui RNMAIL, RNBOARD, RNCHAT ou RNMSG
 
@@ -58,80 +44,138 @@ O RNTSR deve ser pensado em fases separadas:
 3. código descartável após instalação
 4. possível rotina futura de remoção
 
-O código de instalação não deve permanecer em memória se não for necessário.
+O código de instalação não deve permanecer em memória se não for
+necessário.
 
-## Dependência de Packet Driver
+## Pré-condições de instalação
 
-O RNTSR só deve carregar se houver Packet Driver carregado.
-Se não detectar Packet Driver, deve abortar sem ficar residente.
+Antes de ficar residente, o agente deve verificar:
 
-O motivo é simples: evitar TSR zumbi sem rede.
+- se já existe instância carregada
+- se há Packet Driver disponível
+- se a configuração mínima está válida
+- se o ambiente permite rede
+- se a interrupção ou API local pretendida está livre ou é segura
+- se o modo de operação foi configurado corretamente
+
+Se qualquer pré-condição falhar, o RNTSR deve abortar sem ficar
+residente.
+
+Sem Packet Driver, não carregar TSR.
+
+## Evitar TSR zumbi
+
+O RNTSR não deve permanecer em memória se não houver rede funcional,
+configuração mínima ou condição operacional válida.
 
 ## Cuidados de arquitetura
 
-- o TSR não deve chamar rotinas pesadas durante interrupções de timer
-- o TSR deve evitar reentrância indevida em DOS
-- o TSR deve manter estado mínimo
-- o TSR deve usar flags internas para adiar trabalho pesado até um momento seguro
-- o TSR deve preservar registradores, flags e contexto da aplicação interrompida
-- o TSR deve ser pequeno e previsível
-- o TSR deve permitir modo quiet/silent
-- o TSR deve permitir desativar popup sem descarregar o agente
-
-## Separação de código
-
-Implementações futuras devem separar claramente:
-
-- código de instalação
-- código residente
-- código descartável após instalação
-
-Também devem estudar:
-
-- Program Segment Prefix
-- cálculo de memória a manter residente
-- preservação e restauração de vetores de interrupção
-- detecção de instância já instalada
-- remoção segura
-- troca e preservação de stack
-- cuidado com chamadas DOS a partir de interrupções
+- evitar chamadas DOS pesadas dentro de interrupções
+- evitar reentrância indevida em DOS
+- preservar registradores
+- preservar flags
+- preservar contexto da aplicação interrompida
+- preservar stack ou trocar stack de forma segura quando necessário
+- manter estado mínimo
+- usar flags internas para adiar trabalho pesado
+- não bloquear a máquina esperando rede
+- não executar polling durante desenho do popup
+- não tocar áudio longo em rotina crítica
+- manter código pequeno e previsível
 
 ## Permanência residente
 
 Exemplo conceitual de Assembly:
 
-    ; RNTSR - exemplo conceitual
-    ; Mantém residente apenas a parte necessária.
-    ; AH=31h: DOS Keep Process
-    ; DX: tamanho residente em parágrafos
-    ;
-    ; Este exemplo não é implementação final.
+```asm
+; RNTSR - exemplo conceitual
+; Mantém residente apenas a parte necessária.
+; AH=31h: DOS Keep Process
+; DX: tamanho residente em parágrafos
+;
+; Este exemplo não é implementação final.
 
-    mov ah, 31h
-    mov dx, resident_size_paragraphs
-    int 21h
+mov ah, 31h
+mov dx, resident_size_paragraphs
+int 21h
+```
 
 INT 21h/AH=31h deve ser o caminho preferencial para novos TSRs.
-INT 27h é legado e deve ser evitado salvo necessidade específica de compatibilidade.
+
+INT 27h é legado e deve ser evitado salvo necessidade específica de
+compatibilidade.
+
 O tamanho residente precisa ser calculado com cuidado.
 O código descartável não deve ficar residente.
-O cálculo deve considerar PSP, segmentos e final real do código residente.
+O cálculo deve considerar PSP, segmentos e final real do código
+residente.
 
-## Fluxo de inicialização
+## Interface futura por interrupção
 
-```text
-AUTOEXEC.BAT
-  ↓
-Packet Driver
-  ↓
-RNTSR /LOAD
-  ↓
-detecção de rede
-  ↓
-handshake mínimo
-  ↓
-instalação residente
+O RNTSR poderá expor uma interrupção própria para consulta local por
+clientes DOS.
+
+Essa interface não substitui o protocolo RetroNet de rede.
+Ela serve apenas para comunicação local entre programas DOS e o
+residente.
+
+Exemplo conceitual:
+
+```asm
+; Consulta local ao RNTSR
+; Exemplo conceitual, não implementação final.
+
+mov ah, 00h
+int 60h
+jc rn_error
 ```
+
+Funções conceituais futuras:
+
+- `AH=00h` -> status do agente
+- `AH=01h` -> quantidade de eventos pendentes
+- `AH=02h` -> forçar poll
+- `AH=03h` -> alternar quiet mode
+- `AH=04h` -> consultar última notificação
+- `AH=05h` -> limpar estado local de notificação
+
+## Detecção de instância já carregada
+
+A implementação futura deve prever uma forma segura de detectar se o
+RNTSR já está instalado.
+
+Possibilidades conceituais:
+
+- assinatura em área residente
+- chamada por interrupção local
+- checagem de vetor
+- resposta de identificação
+- versão do agente
+- capabilities locais
+
+Não implementar ainda.
+
+## Remoção futura
+
+`RNTSR /UNLOAD` é desejável, mas deve ser tratado com cuidado.
+
+A remoção só deve ocorrer se:
+
+- os vetores originais puderem ser restaurados
+- nenhuma aplicação estiver usando o agente
+- a cadeia de interrupções estiver íntegra
+- o bloco de memória puder ser liberado com segurança
+
+## Modelo de polling
+
+Valores conceituais:
+
+- Idle: 120s
+- Ativo: 30s
+- Erro: backoff 5min, 10min, 30min
+- Manual: `RNTSR /POLLNOW`
+
+O polling deve ser curto, não bloqueante e com timeout.
 
 ## Comandos previstos
 
@@ -140,61 +184,28 @@ instalação residente
 - `RNTSR /STATUS`
 - `RNTSR /POLLNOW`
 - `RNTSR /QUIET`
+- `RNTSR /POPUP:ON`
+- `RNTSR /POPUP:OFF`
 
-## Modelo de polling
+## Boas práticas para exemplos de código
 
-- Idle: 120s
-- Ativo: 30s
-- Erro: backoff 5min, 10min, 30min
+- exemplos devem ser curtos
+- exemplos devem ser próprios do RetroNet
+- exemplos devem explicar o conceito
+- exemplos não devem copiar implementações completas de terceiros
+- exemplos devem priorizar clareza e compatibilidade
+- exemplos Assembly devem ser marcados como conceituais
+- exemplos não devem ser tratados como implementação final
 
-## Uso futuro
+## MVP RNTSR v0.1
 
-- notificação de mensagens
-- alertas de board
-- eventos de sistema
-
-## Eventos previstos
-
-- MAIL
-- BOARD
-- CHAT
-- SYSTEM
-- MOTD
-- FILE
-- USER
-
-## Capabilities relacionadas
-
-- `RN_CAP_NOTIFY`
-- `RN_CAP_AUDIO`
-- `RN_CAP_MOTD`
-
-## Integração futura via interrupção
-
-Uma possibilidade futura é expor consulta de estado via interrupção dedicada, por exemplo `INT 60h`.
-
-Exemplo conceitual:
-
-    ; Consulta local ao RNTSR
-    ; Exemplo conceitual, não implementação final.
-
-    mov ah, 00h
-    int 60h
-    jc  rn_error
-
-Exemplo conceitual de funções:
-
-- `AH=00h` -> status do agente
-- `AH=01h` -> quantidade de eventos pendentes
-- `AH=02h` -> forçar poll
-- `AH=03h` -> modo quiet on/off
-- `AH=04h` -> consultar última notificação
-- `AH=05h` -> limpar estado local de notificação
-
-O objetivo seria permitir que clientes DOS consultem o TSR sem implementar rede.
-
-Essa interface não deve substituir o protocolo de rede.
-Ela serve para comunicação local entre aplicações DOS e o residente.
+- detectar Packet Driver
+- abortar sem ficar residente se não houver rede
+- instalar TSR mínimo
+- manter estado local mínimo
+- executar polling leve
+- exibir popup em modo texto
+- suportar `STATUS`, `POLLNOW` e `QUIET`
 
 ## Próximos passos
 
@@ -207,16 +218,6 @@ Ela serve para comunicação local entre aplicações DOS e o residente.
 
 - documentação inicial
 - sem implementação funcional ainda
-
-## Boas práticas para exemplos de código
-
-- exemplos devem ser curtos
-- exemplos devem ser próprios do RetroNet
-- exemplos devem explicar o conceito
-- exemplos não devem copiar implementações completas de terceiros
-- exemplos devem priorizar clareza e compatibilidade
-- exemplos Assembly devem ser marcados como conceituais
-- exemplos não devem ser tratados como implementação final
 
 ## Relação com outros documentos
 

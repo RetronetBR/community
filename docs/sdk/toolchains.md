@@ -15,7 +15,6 @@ Documentar caminhos de compilação compatíveis com o ecossistema retro.
 - Borland Pascal
 - NASM
 - MASM
-- MASM/TASM quando aplicável
 - TASM
 - compiladores modernos gerando binários DOS e `.COM`
 
@@ -38,7 +37,8 @@ Documentar caminhos de compilação compatíveis com o ecossistema retro.
 - real mode 16-bit: Turbo C, Borland C, Turbo Pascal, Borland Pascal, MASM/TASM, NASM
 - DOS extender: DJGPP, OpenWatcom
 - emulador: compilações modernas para DOS/.COM/.EXE e testes em QEMU, DOSBox-X, PCem e 86Box
-- hardware real: toolchains pequenas, binários previsíveis e rotinas compatíveis com o alvo escolhido
+- hardware real: toolchains pequenas, binários previsíveis e rotinas
+  compatíveis com o alvo escolhido
 
 ## Integração entre linguagens
 
@@ -57,7 +57,9 @@ Documentar caminhos de compilação compatíveis com o ecossistema retro.
 
 ## Status
 
-Esta é uma trilha de compatibilidade e pesquisa. Nem todas as toolchains serão suportadas em todos os módulos.
+Esta é uma trilha de compatibilidade e pesquisa.
+
+Nem todas as toolchains serão suportadas em todos os módulos.
 
 ## Próximos passos
 

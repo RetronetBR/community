@@ -1,12 +1,13 @@
 # Packet Driver no RetroNet
 
-## Objetivo
-
-Documentar o Packet Driver como pré-condição para o RNTSR em ambiente DOS.
-
 ## Status
 
 Pesquisa / arquitetura inicial.
+
+## Objetivo
+
+Documentar o Packet Driver como pré-condição para o RNTSR em ambiente
+DOS.
 
 ## Por que Packet Driver
 
@@ -15,19 +16,23 @@ Pesquisa / arquitetura inicial.
 - ecossistema já conhecido por softwares TCP/IP DOS
 - compatível com mTCP e outras stacks
 
-## Regra do RNTSR
+## Regra principal
 
 O RNTSR só deve carregar se o Packet Driver estiver carregado.
+
 Sem Packet Driver, ele não deve permanecer residente.
 
-Isso evita TSR zumbi sem rede e reduz consumo de memória em sistemas que não estão prontos para operar.
+Isso evita TSR zumbi sem rede e reduz consumo de memória em sistemas
+que não estão prontos para operar.
 
-## Exemplo de AUTOEXEC.BAT
+## Ordem recomendada no AUTOEXEC.BAT
 
-    NE2000.COM 0x60 5 0x300
-    RNTSR.EXE /LOAD
+```bat
+NE2000.COM 0x60 5 0x300
+RNTSR.EXE /LOAD
+```
 
-## Detecção
+## Detecção conceitual
 
 Uma estratégia inicial de detecção pode incluir:
 
@@ -38,10 +43,13 @@ Uma estratégia inicial de detecção pode incluir:
 A detecção deve acontecer antes da instalação residente.
 Somente depois disso o RNTSR pode ser carregado com segurança.
 
-## Ordem recomendada no AUTOEXEC.BAT
+## Estratégias candidatas
 
-    NE2000.COM 0x60 5 0x300
-    RNTSR.EXE /LOAD
+- interrupção configurável em `RETRONET.CFG`
+- varredura de vetores prováveis
+- integração com mTCP
+- testes com NE2000
+- fallback para não carregar o TSR
 
 ## Falha esperada
 
@@ -52,17 +60,15 @@ Carregue o Packet Driver antes de executar RNTSR /LOAD.
 RNTSR não foi carregado.
 ```
 
-## Próximos passos
+## Próximos estudos
 
-- definir estratégia exata de detecção
-- integrar a detecção com a fase de instalação do RNTSR
-- integrar com mTCP
-- testar em DOSBox-X
-- testar em 86Box
-- testar em PCem
-- testar em QEMU
-- testar com NE2000
-- testar em hardware real
+- integração com mTCP
+- Packet Driver em DOSBox-X
+- Packet Driver em 86Box
+- Packet Driver em PCem
+- Packet Driver em QEMU
+- testes com NE2000
+- testes em hardware real
 
 ## Relação com outros documentos
 

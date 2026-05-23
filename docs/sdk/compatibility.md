@@ -38,7 +38,8 @@ Manter compatibilidade acima de modernização.
 
 ## Status
 
-A compatibilidade é uma diretriz do projeto, não uma promessa de suporte imediato para todas as plataformas.
+A compatibilidade é uma diretriz do projeto, não uma promessa de
+suporte imediato para todas as plataformas.
 
 ## Uso futuro
 
@@ -49,33 +50,19 @@ A compatibilidade é uma diretriz do projeto, não uma promessa de suporte imedi
 
 ## Matriz futura de compatibilidade
 
-Colunas sugeridas:
-
-- Recurso
-- MS-DOS 2.x
-- MS-DOS 3.x
-- MS-DOS 5.x
-- MS-DOS 6.x
-- FreeDOS
-- DOSBox-X
-- 86Box
-- PCem
-- QEMU
-- Hardware real
-
-Linhas sugeridas:
-
-- RNTSR load
-- RNTSR unload
-- Packet Driver
-- Popup texto
-- Beep
-- mTCP
-- Cliente CLI
-- Cliente TUI
-- Cliente VGA
-- QWK
-- IPX
+| Recurso | MS-DOS 2.x | MS-DOS 3.x | MS-DOS 5.x | MS-DOS 6.x | FreeDOS | DOSBox-X | 86Box | PCem | QEMU | Hardware real |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| RNTSR load | pesquisa | planejado | planejado | planejado | planejado | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| RNTSR unload | pesquisa | planejado | planejado | planejado | planejado | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| Packet Driver | depende de driver | depende de driver | depende de driver | depende de driver | depende de driver | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| Popup texto | planejado | planejado | planejado | planejado | planejado | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| Beep | planejado | planejado | planejado | planejado | planejado | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| mTCP | não testado | não testado | não testado | não testado | não testado | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| Cliente CLI | planejado | planejado | planejado | planejado | planejado | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| Cliente TUI | planejado | planejado | planejado | planejado | planejado | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| Cliente VGA | alvo futuro | alvo futuro | alvo futuro | alvo futuro | alvo futuro | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| QWK | alvo futuro | alvo futuro | alvo futuro | alvo futuro | alvo futuro | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
+| IPX | alvo futuro | alvo futuro | alvo futuro | alvo futuro | alvo futuro | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
 
 ## Próximos passos
 

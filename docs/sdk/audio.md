@@ -22,7 +22,9 @@ Definir a trilha inicial de `librnaudio`.
 ## Status
 
 PC Speaker e AdLib/OPL são referências iniciais para o ecossistema.
-Sound Blaster 16 ainda falta como referência e trilha de pesquisa para PCM, DMA, IRQ, mixer e alertas customizados.
+
+Sound Blaster 16 ainda falta como referência e trilha de pesquisa para
+PCM, DMA, IRQ, mixer e alertas customizados.
 
 ## Próximos passos
 

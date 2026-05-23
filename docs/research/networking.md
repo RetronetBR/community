@@ -2,28 +2,34 @@
 
 ## Objetivo
 
-Registrar a trilha de pesquisa em transportes e redes para o ecossistema RetroNet.
+Documentar os transportes e caminhos de rede que o SDK pode abranger.
 
 ## Status
 
-O SDK deve funcionar bem em redes lentas, transportes legados e integrações simples.
+O SDK deve funcionar bem em redes lentas, transportes legados e
+integrações simples.
+
 O RNTSR não implementa stack de rede própria.
 Ele usa a camada de rede disponível no ambiente.
 
-## Uso futuro
+## Transportes possíveis
 
 - TCP/IP
 - Packet Driver
+- mTCP
 - PPP
 - SLIP
-- Serial
+- serial
 - ESP32 como modem Wi-Fi/serial
 - IPX
 - IPXBox
 - gateways legados
 
 Para DOS, TCP/IP via Packet Driver e mTCP é um caminho provável.
-Para cenários legados, PPP, SLIP, serial e modem Wi-Fi baseado em ESP32 continuam interessantes.
+
+Para cenários legados, PPP, SLIP, serial e modem Wi-Fi baseado em
+ESP32 continuam interessantes.
+
 Para jogos e ambientes DOS, IPX e IPXBox seguem como pesquisa futura.
 
 ## Modelo de rede para RNTSR
@@ -40,6 +46,7 @@ Para jogos e ambientes DOS, IPX e IPXBox seguem como pesquisa futura.
 ## Regra
 
 O RNTSR não deve implementar stack de rede própria.
+
 Ele deve usar uma camada disponível no ambiente.
 
 ## Diretrizes

@@ -30,7 +30,10 @@ aplicação
 
 ## Status
 
-Esses componentes são previstos. A documentação define o mapa arquitetural para orientar implementação e contribuições.
+Esses componentes são previstos.
+
+A documentação define o mapa arquitetural para orientar implementação e
+contribuições.
 
 ## Uso futuro
 

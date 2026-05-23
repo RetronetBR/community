@@ -1,12 +1,12 @@
 # Notificações TSR no RetroNet
 
-## Objetivo
-
-Documentar o popup temporário do RNTSR.
-
 ## Status
 
 Pesquisa / arquitetura inicial.
+
+## Objetivo
+
+Documentar o popup temporário do RNTSR.
 
 ## Comportamento
 
@@ -17,21 +17,25 @@ Pesquisa / arquitetura inicial.
 - o popup é temporário
 - o popup salva e restaura a área da tela
 - o popup só deve aparecer em modo texto
-- em modo gráfico, fullscreen, jogo ou aplicação sensível, não exibir popup
+- em modo gráfico, fullscreen, jogo ou aplicação sensível, não exibir
+  popup
 - beep pode ser fallback
 - futuramente pode integrar com `librnaudio`
 
 ## Exemplo visual
 
-    ┌──────────────────────────────┐
-    │ RetroNet Community           │
-    │ Nova mensagem disponível     │
-    └──────────────────────────────┘
+```text
+┌──────────────────────────────┐
+│ RetroNet Community           │
+│ Nova mensagem disponível     │
+└──────────────────────────────┘
+```
 
 ## Regras de segurança
 
 - não redesenhar tela se modo de vídeo não for texto
-- evitar escrita direta em vídeo quando aplicação estiver em modo gráfico
+- evitar escrita direta em vídeo quando aplicação estiver em modo
+  gráfico
 - restaurar exatamente a região usada pelo popup
 - não bloquear o sistema esperando rede
 - não fazer polling durante desenho do popup
@@ -48,20 +52,6 @@ Campos conceituais:
 - `counter`
 - `last_event_id`
 
-## Configuração futura
-
-    [agent]
-    popup_enabled=yes
-    popup_seconds=4
-    popup_position=top_right
-    beep=yes
-
-## Alertas sonoros futuros
-
-- PC Speaker
-- AdLib/OPL
-- Sound Blaster 16 futuramente
-
 ## Tipos de notificação
 
 - `MAIL_PENDING`
@@ -71,6 +61,30 @@ Campos conceituais:
 - `FILE_AVAILABLE`
 - `SYSTEM_EVENT`
 - `SESSION_WARNING`
+
+## Configuração futura
+
+```ini
+[agent]
+popup_enabled=yes
+popup_seconds=4
+popup_position=top_right
+beep=yes
+```
+
+## Cuidados
+
+- não exibir popup em modo gráfico
+- não exibir sobre jogos ou aplicações fullscreen sensíveis
+- usar beep ou estado interno como fallback
+- não bloquear esperando rede
+
+## Alertas sonoros futuros
+
+- PC Speaker
+- AdLib/OPL
+- Sound Blaster 16 futuramente
+- integração futura com `librnaudio`
 
 ## Próximos passos
 

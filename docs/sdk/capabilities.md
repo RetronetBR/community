@@ -6,7 +6,8 @@ Permitir expansão gradual sem quebrar compatibilidade.
 
 ## Conceito
 
-O protocolo é estável, mas os recursos disponíveis podem variar conforme cliente, plataforma e transporte.
+O protocolo é estável, mas os recursos disponíveis podem variar
+conforme cliente, plataforma e transporte.
 O servidor deve oferecer apenas o que o cliente declarou suportar.
 
 ## Exemplos

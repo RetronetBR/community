@@ -43,5 +43,9 @@ retronet-poc/
 ## Estado atual
 
 O projeto já possui os executáveis `rnd`, `rnsync`, `rnpeer`, `rnmsg` e `rndctl`.
-O fluxo de mensagem segue a lógica store-and-forward descrita em [Core Documentation](core/README.md).
-O registro de usuário e a fonte de verdade de identidade são descritos em [Core Documentation](core/README.md).
+
+O fluxo de mensagem segue a lógica store-and-forward descrita em
+[Core Documentation](core/README.md).
+
+O registro de usuário e a fonte de verdade de identidade são descritos
+em [Core Documentation](core/README.md).

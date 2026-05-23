@@ -19,7 +19,8 @@ cliente -> connect -> auth -> poll -> close
 
 ## Status
 
-O protocolo do SDK deve acomodar as capacidades do ecossistema sem impor peso desnecessário a clientes simples.
+O protocolo do SDK deve acomodar as capacidades do ecossistema sem
+impor peso desnecessário a clientes simples.
 
 ## Uso futuro
 

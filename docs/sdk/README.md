@@ -1,7 +1,10 @@
 # RetroNet SDK
 
-O RetroNet SDK é o kit de desenvolvimento e integração do ecossistema RetroNet.
-Ele existe para preservar, reaproveitar e reintegrar software legado, compiladores, bibliotecas, protocolos e conhecimento técnico ainda útil.
+O RetroNet SDK é o kit de desenvolvimento e integração do ecossistema
+RetroNet.
+
+Ele existe para preservar, reaproveitar e reintegrar software legado,
+compiladores, bibliotecas, protocolos e conhecimento técnico ainda útil.
 
 ## Objetivo
 

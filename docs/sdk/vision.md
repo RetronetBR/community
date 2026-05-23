@@ -3,7 +3,10 @@
 ## Objetivo
 
 Preservação tecnológica ativa.
-RetroNet SDK não tenta substituir tecnologias antigas. A proposta é reaproveitar o que ainda tem valor e devolver utilidade prática a softwares, protocolos e ferramentas retro.
+RetroNet SDK não tenta substituir tecnologias antigas.
+
+A proposta é reaproveitar o que ainda tem valor e devolver utilidade
+prática a softwares, protocolos e ferramentas retro.
 
 ## Princípios
 
