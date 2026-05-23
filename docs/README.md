@@ -24,16 +24,7 @@ O estado atual do MVP cobre:
 
 ## Documentos
 
-- [Filosofia](philosophy.md)
-- [Arquitetura](architecture.md)
-- [Protocolo v0.1](protocol-v0.1.md)
-- [Federação v0.1](federation-v0.1.md)
-- [Formato de mensagem](message-format.md)
-- [Capabilities](capabilities.md)
-- [Tipos de nó](node-types.md)
-- [Runtime](runtime-layout.md)
-- [Roadmap](roadmap.md)
-- [Contribuindo](contributing.md)
+- [Core Documentation](core/README.md)
 - [RetroNet SDK](sdk/README.md)
 - [Research](research/README.md)
 
@@ -52,5 +43,5 @@ retronet-poc/
 ## Estado atual
 
 O projeto já possui os executáveis `rnd`, `rnsync`, `rnpeer`, `rnmsg` e `rndctl`.
-O fluxo de mensagem segue a lógica store-and-forward descrita em [protocol-v0.1.md](protocol-v0.1.md).
-O registro de usuário e a fonte de verdade de identidade são descritos em [federation-v0.1.md](federation-v0.1.md).
+O fluxo de mensagem segue a lógica store-and-forward descrita em [Core Documentation](core/README.md).
+O registro de usuário e a fonte de verdade de identidade são descritos em [Core Documentation](core/README.md).

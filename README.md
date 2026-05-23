@@ -5,16 +5,7 @@ PoC em C puro, sem dependências externas, para uma rede store-and-forward inspi
 Documentação inicial do projeto:
 
 - [docs/README.md](docs/README.md)
-- [docs/philosophy.md](docs/philosophy.md)
-- [docs/architecture.md](docs/architecture.md)
-- [docs/protocol-v0.1.md](docs/protocol-v0.1.md)
-- [docs/federation-v0.1.md](docs/federation-v0.1.md)
-- [docs/message-format.md](docs/message-format.md)
-- [docs/capabilities.md](docs/capabilities.md)
-- [docs/node-types.md](docs/node-types.md)
-- [docs/runtime-layout.md](docs/runtime-layout.md)
-- [docs/roadmap.md](docs/roadmap.md)
-- [docs/contributing.md](docs/contributing.md)
+- [docs/core/README.md](docs/core/README.md)
 - [docs/sdk/README.md](docs/sdk/README.md)
 - [docs/research/README.md](docs/research/README.md)
 
