@@ -1,14 +1,23 @@
 # Compatibilidade
 
+## Status
+
+Pesquisa / arquitetura inicial.
+
+Esta página define diretrizes de compatibilidade para o RetroNet SDK.
+
+Ela não afirma suporte já validado nas plataformas listadas.
+
 ## Objetivo
 
-Manter compatibilidade acima de modernização.
+Documentar compatibilidade entre versões de DOS e ambientes de
+execução.
 
 ## Regras
 
 - priorizar binários pequenos
 - evitar dependências pesadas
-- evitar recursos que exijam runtime moderno desnecessário
+- evitar runtime moderno desnecessário
 - preservar clientes antigos sempre que possível
 - não quebrar o contrato do protocolo sem versão explícita
 - tratar compatibilidade entre versões do DOS como requisito do SDK
@@ -25,30 +34,25 @@ Manter compatibilidade acima de modernização.
 - considerar MS-DOS, PC-DOS, FreeDOS e ambientes emulados
 - criar futuramente matriz de compatibilidade
 
-## Plataformas
+## Plataformas consideradas
 
-- MS-DOS
+- MS-DOS 2.x
+- MS-DOS 3.x
+- MS-DOS 5.x
+- MS-DOS 6.x
+- PC-DOS
 - FreeDOS
-- Windows 3.x
-- Windows 9x
-- Windows 2000
-- Linux
-- emuladores
+- DOSBox-X
+- 86Box
+- PCem
+- QEMU
 - hardware real
 
-## Status
-
-A compatibilidade é uma diretriz do projeto, não uma promessa de
-suporte imediato para todas as plataformas.
-
-## Uso futuro
-
-- decidir quais recursos são obrigatórios e quais são opcionais
-- definir degradação graciosa por capability
-- manter clientes antigos operando com subconjunto funcional
-- criar uma matriz futura de compatibilidade
-
 ## Matriz futura de compatibilidade
+
+Esta tabela é conceitual.
+
+Ela não representa validação concluída.
 
 | Recurso | MS-DOS 2.x | MS-DOS 3.x | MS-DOS 5.x | MS-DOS 6.x | FreeDOS | DOSBox-X | 86Box | PCem | QEMU | Hardware real |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -64,9 +68,20 @@ suporte imediato para todas as plataformas.
 | QWK | alvo futuro | alvo futuro | alvo futuro | alvo futuro | alvo futuro | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
 | IPX | alvo futuro | alvo futuro | alvo futuro | alvo futuro | alvo futuro | pesquisa | pesquisa | pesquisa | pesquisa | pesquisa |
 
+## Uso futuro
+
+- decidir quais recursos são obrigatórios
+- decidir quais recursos são opcionais
+- definir degradação graciosa por capability
+- manter clientes antigos operando com subconjunto funcional
+- criar matriz de compatibilidade validada por testes
+
 ## Próximos passos
 
 - documentar perfis mínimos por plataforma
 - definir limites de memória por alvo
 - definir recursos proibidos em clientes base
-- separar compatibilidade por versão de DOS e por ambiente de execução
+- separar compatibilidade por versão de DOS
+- separar compatibilidade por ambiente de execução
+- validar comportamento em emuladores
+- validar comportamento em hardware real

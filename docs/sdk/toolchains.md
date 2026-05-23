@@ -1,8 +1,23 @@
 # Toolchains
 
+## Status
+
+Pesquisa / arquitetura inicial.
+
+Esta página documenta toolchains candidatas para o RetroNet SDK.
+
+Nem todas as toolchains serão suportadas em todos os módulos.
+
 ## Objetivo
 
 Documentar caminhos de compilação compatíveis com o ecossistema retro.
+
+## Linguagens
+
+- C
+- Assembly
+- Pascal
+- C++ futuramente, quando fizer sentido
 
 ## Toolchains alvo
 
@@ -16,7 +31,31 @@ Documentar caminhos de compilação compatíveis com o ecossistema retro.
 - NASM
 - MASM
 - TASM
-- compiladores modernos gerando binários DOS e `.COM`
+
+## Compiladores modernos
+
+Compiladores modernos que geram binários DOS também podem ser
+avaliados.
+
+Formatos relevantes:
+
+- `.COM`
+- `.EXE`
+- binários para DOS extender
+- builds cruzados gerados fora do DOS
+
+## Uso recomendado
+
+- Assembly para TSR
+- Assembly para interrupções
+- Assembly para rotinas críticas
+- Assembly para acesso de baixo nível
+- C para núcleo do SDK
+- C para bibliotecas
+- C para clientes portáveis
+- Pascal para clientes retro
+- Pascal para bindings voltados à comunidade retro
+- C++ apenas quando não prejudicar compatibilidade
 
 ## Uso por alvo
 
@@ -25,46 +64,66 @@ Documentar caminhos de compilação compatíveis com o ecossistema retro.
 - emulador
 - hardware real
 
-## Uso recomendado
-
-- Assembly para TSR, interrupções, rotinas críticas e baixo nível
-- C para bibliotecas e clientes portáveis
-- Pascal para clientes e bindings voltados à comunidade retro
-- C++ apenas onde não prejudicar compatibilidade
-
 ## Exemplos por alvo
 
-- real mode 16-bit: Turbo C, Borland C, Turbo Pascal, Borland Pascal,
-  MASM, TASM, NASM
-- DOS extender: DJGPP, OpenWatcom
-- emulador: compilações modernas para DOS/.COM/.EXE e testes em QEMU, DOSBox-X, PCem e 86Box
-- hardware real: toolchains pequenas, binários previsíveis e rotinas
-  compatíveis com o alvo escolhido
+Real mode 16-bit:
+
+- Turbo C
+- Borland C
+- Turbo Pascal
+- Borland Pascal
+- MASM
+- TASM
+- NASM
+
+DOS extender:
+
+- DJGPP
+- OpenWatcom
+
+Emulador:
+
+- QEMU
+- DOSBox-X
+- PCem
+- 86Box
+- builds modernos para DOS
+
+Hardware real:
+
+- toolchains pequenas
+- binários previsíveis
+- rotinas compatíveis com o alvo escolhido
 
 ## Integração entre linguagens
 
-- o SDK pode ter núcleo em C
-- rotinas críticas podem usar Assembly
-- bindings Pascal podem expor API simples
-- clientes DOS podem ser escritos em C ou Pascal
-- RNTSR provavelmente terá partes em Assembly
-- o objetivo é permitir contribuição de diferentes perfis de programadores
+O SDK pode ter núcleo em C.
+
+Rotinas críticas podem usar Assembly.
+
+Bindings Pascal podem expor uma API simples.
+
+Clientes DOS podem ser escritos em C ou Pascal.
+
+O RNTSR provavelmente terá partes em Assembly.
+
+O objetivo é permitir contribuição de diferentes perfis de
+programadores.
 
 ## Uso futuro
 
-- builds de cliente fora do DOS para gerar artefatos DOS
+- builds de cliente fora do DOS
+- geração de artefatos DOS
 - CI/CD para builds DOS
 - artefatos reproduzíveis
-
-## Status
-
-Esta é uma trilha de compatibilidade e pesquisa.
-
-Nem todas as toolchains serão suportadas em todos os módulos.
+- exemplos mínimos por linguagem
+- exemplos mínimos por plataforma
 
 ## Próximos passos
 
 - definir versões mínimas por toolchain
 - classificar toolchains por target
-- documentar flags e limitações essenciais
-- separar exemplos por alvo e linguagem
+- documentar flags essenciais
+- documentar limitações essenciais
+- separar exemplos por alvo
+- separar exemplos por linguagem

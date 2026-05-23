@@ -4,27 +4,41 @@
 
 Pesquisa / arquitetura inicial.
 
+O RNTSR ainda não possui implementação funcional documentada neste
+repositório.
+
+Este arquivo descreve a arquitetura pretendida, os cuidados técnicos e
+os limites do agente residente.
+
 ## Objetivo
 
-Explicar que o RNTSR é um agente residente para MS-DOS e FreeDOS
-responsável apenas por:
+O RNTSR é um agente residente mínimo para MS-DOS e FreeDOS.
+
+Ele deve consultar periodicamente o servidor RetroNet, detectar eventos
+pendentes e avisar o usuário com notificações temporárias.
+
+O RNTSR não é um cliente completo de mensagens.
+
+## Escopo do agente
+
+O RNTSR deve ser responsável apenas por tarefas leves.
 
 - heartbeat
 - polling leve
 - consulta de eventos pendentes
 - notificação temporária
 - estado local mínimo
-
-O RNTSR não é um cliente completo.
+- interface local futura para clientes DOS
 
 ## O que o RNTSR faz
 
 - verifica sessão
 - consulta eventos
+- detecta novidades
 - exibe popup temporário
 - pode tocar beep futuramente
-- mantém estado mínimo
-- pode expor interface local futura para clientes DOS
+- mantém estado local mínimo
+- pode expor uma API local para clientes DOS
 
 ## O que o RNTSR não faz
 
@@ -33,13 +47,16 @@ O RNTSR não é um cliente completo.
 - não processa QWK
 - não baixa anexos
 - não transfere arquivos
-- não substitui RNMAIL, RNBOARD, RNCHAT ou RNMSG
+- não substitui RNMAIL
+- não substitui RNBOARD
+- não substitui RNCHAT
+- não substitui RNMSG
 
 ## Fases do RNTSR
 
-O RNTSR deve ser pensado em fases separadas:
+O RNTSR deve ser dividido em fases claras.
 
-1. instalação
+1. fase de instalação
 2. código residente
 3. código descartável após instalação
 4. possível rotina futura de remoção
@@ -49,14 +66,14 @@ necessário.
 
 ## Pré-condições de instalação
 
-Antes de ficar residente, o agente deve verificar:
+Antes de ficar residente, o RNTSR deve validar o ambiente.
 
-- se já existe instância carregada
-- se há Packet Driver disponível
-- se a configuração mínima está válida
-- se o ambiente permite rede
-- se a interrupção ou API local pretendida está livre ou é segura
-- se o modo de operação foi configurado corretamente
+- verificar se já existe instância carregada
+- verificar se há Packet Driver disponível
+- verificar se a configuração mínima está válida
+- verificar se o ambiente permite rede
+- verificar se a interrupção local pretendida está livre ou segura
+- verificar se o modo de operação foi configurado corretamente
 
 Se qualquer pré-condição falhar, o RNTSR deve abortar sem ficar
 residente.
@@ -65,8 +82,13 @@ Sem Packet Driver, não carregar TSR.
 
 ## Evitar TSR zumbi
 
-O RNTSR não deve permanecer em memória se não houver rede funcional,
-configuração mínima ou condição operacional válida.
+O RNTSR não deve permanecer em memória sem rede funcional.
+
+O RNTSR também não deve permanecer em memória se a configuração mínima
+estiver ausente ou inválida.
+
+Esse comportamento evita um residente sem utilidade consumindo memória
+convencional.
 
 ## Cuidados de arquitetura
 
@@ -74,7 +96,7 @@ configuração mínima ou condição operacional válida.
 - evitar reentrância indevida em DOS
 - preservar registradores
 - preservar flags
-- preservar contexto da aplicação interrompida
+- preservar o contexto da aplicação interrompida
 - preservar stack ou trocar stack de forma segura quando necessário
 - manter estado mínimo
 - usar flags internas para adiar trabalho pesado
@@ -82,8 +104,50 @@ configuração mínima ou condição operacional válida.
 - não executar polling durante desenho do popup
 - não tocar áudio longo em rotina crítica
 - manter código pequeno e previsível
+- permitir modo quiet/silent
+- permitir desativar popup sem descarregar o agente
+
+## Separação de código
+
+A implementação futura deve separar o código por responsabilidade.
+
+- código de instalação
+- código residente
+- código descartável após instalação
+- código de interface local
+- código de remoção futura
+
+Essa separação é importante porque apenas a parte realmente necessária
+deve permanecer residente.
+
+## Temas técnicos para estudo
+
+Implementações futuras devem estudar os seguintes pontos.
+
+- Program Segment Prefix
+- cálculo de memória residente
+- DOS Keep Process
+- preservação de vetores de interrupção
+- restauração de vetores de interrupção
+- detecção de instância já instalada
+- remoção segura
+- troca de stack
+- preservação de stack
+- cuidado com chamadas DOS a partir de interrupções
 
 ## Permanência residente
+
+INT 21h/AH=31h deve ser o caminho preferencial para novos TSRs.
+
+INT 27h é legado e deve ser evitado, salvo necessidade específica de
+compatibilidade.
+
+O tamanho residente precisa ser calculado com cuidado.
+
+O cálculo deve considerar PSP, segmentos e final real do código
+residente.
+
+O código descartável não deve ficar residente.
 
 Exemplo conceitual de Assembly:
 
@@ -100,15 +164,23 @@ mov dx, resident_size_paragraphs
 int 21h
 ```
 
-INT 21h/AH=31h deve ser o caminho preferencial para novos TSRs.
+## Fluxo de inicialização
 
-INT 27h é legado e deve ser evitado salvo necessidade específica de
-compatibilidade.
+Fluxo conceitual:
 
-O tamanho residente precisa ser calculado com cuidado.
-O código descartável não deve ficar residente.
-O cálculo deve considerar PSP, segmentos e final real do código
-residente.
+```text
+AUTOEXEC.BAT
+  ↓
+Packet Driver
+  ↓
+RNTSR /LOAD
+  ↓
+detecção de rede
+  ↓
+handshake mínimo
+  ↓
+instalação residente
+```
 
 ## Interface futura por interrupção
 
@@ -116,6 +188,7 @@ O RNTSR poderá expor uma interrupção própria para consulta local por
 clientes DOS.
 
 Essa interface não substitui o protocolo RetroNet de rede.
+
 Ela serve apenas para comunicação local entre programas DOS e o
 residente.
 
@@ -153,7 +226,7 @@ Possibilidades conceituais:
 - versão do agente
 - capabilities locais
 
-Não implementar ainda.
+Nenhuma dessas alternativas está implementada neste momento.
 
 ## Remoção futura
 
@@ -177,6 +250,22 @@ Valores conceituais:
 
 O polling deve ser curto, não bloqueante e com timeout.
 
+## Eventos previstos
+
+- `MAIL`
+- `BOARD`
+- `CHAT`
+- `SYSTEM`
+- `MOTD`
+- `FILE`
+- `USER`
+
+## Capabilities relacionadas
+
+- `RN_CAP_NOTIFY`
+- `RN_CAP_AUDIO`
+- `RN_CAP_MOTD`
+
 ## Comandos previstos
 
 - `RNTSR /LOAD`
@@ -199,13 +288,17 @@ O polling deve ser curto, não bloqueante e com timeout.
 
 ## MVP RNTSR v0.1
 
+Escopo conceitual do primeiro MVP:
+
 - detectar Packet Driver
 - abortar sem ficar residente se não houver rede
 - instalar TSR mínimo
 - manter estado local mínimo
 - executar polling leve
 - exibir popup em modo texto
-- suportar `STATUS`, `POLLNOW` e `QUIET`
+- suportar `STATUS`
+- suportar `POLLNOW`
+- suportar `QUIET`
 
 ## Próximos passos
 
@@ -213,6 +306,9 @@ O polling deve ser curto, não bloqueante e com timeout.
 - avaliar `INT 60h` como interface futura
 - documentar estratégia de polling
 - definir limites de memória e de execução
+- definir estratégia segura de unload
+- validar comportamento em emuladores
+- validar comportamento em hardware real
 
 ## Status de implementação
 

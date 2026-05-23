@@ -4,28 +4,37 @@
 
 Pesquisa / arquitetura inicial.
 
+Não há implementação funcional documentada neste arquivo.
+
 ## Objetivo
 
 Documentar o Packet Driver como pré-condição para o RNTSR em ambiente
 DOS.
 
-## Por que Packet Driver
-
-- compatibilidade com MS-DOS
-- integração com placas Ethernet antigas
-- ecossistema já conhecido por softwares TCP/IP DOS
-- compatível com mTCP e outras stacks
-
 ## Regra principal
 
-O RNTSR só deve carregar se o Packet Driver estiver carregado.
+Sem Packet Driver detectado, o RNTSR não deve carregar residente.
 
-Sem Packet Driver, ele não deve permanecer residente.
+Essa regra existe para evitar um TSR sem rede funcional consumindo
+memória convencional.
 
-Isso evita TSR zumbi sem rede e reduz consumo de memória em sistemas
-que não estão prontos para operar.
+## Por que Packet Driver
+
+Packet Driver é uma base provável para conectividade TCP/IP em DOS.
+
+Ele é relevante porque oferece:
+
+- compatibilidade com MS-DOS
+- compatibilidade com FreeDOS
+- integração com placas Ethernet antigas
+- ecossistema conhecido por softwares TCP/IP DOS
+- possível integração com mTCP
+- caminho de teste em emuladores
+- caminho de teste em hardware real
 
 ## Ordem recomendada no AUTOEXEC.BAT
+
+Exemplo conceitual:
 
 ```bat
 NE2000.COM 0x60 5 0x300
@@ -34,14 +43,16 @@ RNTSR.EXE /LOAD
 
 ## Detecção conceitual
 
-Uma estratégia inicial de detecção pode incluir:
-
-- varrer interrupções prováveis
-- validar assinatura ou serviço do Packet Driver
-- confirmar capacidade mínima de rede
-
 A detecção deve acontecer antes da instalação residente.
-Somente depois disso o RNTSR pode ser carregado com segurança.
+
+Estratégia conceitual:
+
+- detectar interrupção do Packet Driver
+- validar assinatura ou serviço
+- confirmar capacidade mínima de rede
+- validar configuração local
+- somente então instalar residente
+- abortar se a rede não estiver disponível
 
 ## Estratégias candidatas
 
@@ -53,12 +64,24 @@ Somente depois disso o RNTSR pode ser carregado com segurança.
 
 ## Falha esperada
 
+Mensagem conceitual:
+
 ```text
 RetroNet TSR Agent
 Packet Driver não encontrado.
 Carregue o Packet Driver antes de executar RNTSR /LOAD.
 RNTSR não foi carregado.
 ```
+
+## Comportamento esperado
+
+Se a detecção falhar, o RNTSR deve encerrar sem ficar residente.
+
+Se a configuração estiver incompleta, o RNTSR deve encerrar sem ficar
+residente.
+
+Se a rede não estiver disponível, o RNTSR deve encerrar sem ficar
+residente.
 
 ## Próximos estudos
 
@@ -69,6 +92,7 @@ RNTSR não foi carregado.
 - Packet Driver em QEMU
 - testes com NE2000
 - testes em hardware real
+- estratégia de configuração por `RETRONET.CFG`
 
 ## Relação com outros documentos
 
