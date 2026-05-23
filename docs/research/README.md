@@ -11,15 +11,17 @@ Ela reúne referências técnicas, históricas e práticas para orientar decisõ
 
 ## Documentos
 
-- [DOS](dos.md)
-- [TSR](tsr.md)
-- [Pascal](pascal.md)
-- [Otimização de C](c-optimization.md)
-- [Vídeo VGA](video-vga.md)
-- [Áudio](audio.md)
-- [Networking](networking.md)
-- [IPX](ipx.md)
-- [Referências do SDK](../sdk/references.md)
+- [TSR / RNTSR](tsr.md): agente residente mínimo, polling leve e integração local por interrupção.
+- [Packet Driver](packet-driver.md): pré-condição de rede para o RNTSR em ambientes DOS.
+- [Notificações](notifications.md): popup temporário, estado mínimo e comportamento seguro em modo texto.
+- [DOS](dos.md): diretrizes para clientes, TSRs e compatibilidade com MS-DOS e FreeDOS.
+- [Pascal](pascal.md): base para bindings e clientes retro com Turbo Pascal e Borland Pascal.
+- [Otimização de C](c-optimization.md): práticas para código pequeno, rápido e previsível.
+- [Vídeo VGA](video-vga.md): trilha para UI em modo texto e VGA.
+- [Áudio](audio.md): alertas sonoros e síntese retro.
+- [Networking](networking.md): transportes legados e caminhos prováveis para o SDK.
+- [IPX](ipx.md): ponte futura para compatibilidade com redes e software legado.
+- [Referências do SDK](../sdk/references.md): lista técnica de materiais e referências úteis para o SDK.
 
 ## Referências iniciais
 
@@ -118,6 +120,13 @@ Ela reúne referências técnicas, históricas e práticas para orientar decisõ
 - Tema: Sound Blaster 16
 - Descrição: ainda falta referência consolidada
 - Uso no RetroNet SDK: futura trilha para áudio PCM, WAV, DMA, IRQ, mixer e alertas customizados
+
+## Relação com a documentação do SDK
+
+- [RetroNet SDK](../sdk/README.md)
+- [Visão do SDK](../sdk/vision.md)
+- [Capabilities do SDK](../sdk/capabilities.md)
+- [Networking do SDK](../sdk/networking.md)
 
 ## Próximos passos
 
