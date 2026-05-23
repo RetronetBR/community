@@ -34,7 +34,8 @@ Documentar caminhos de compilação compatíveis com o ecossistema retro.
 
 ## Exemplos por alvo
 
-- real mode 16-bit: Turbo C, Borland C, Turbo Pascal, Borland Pascal, MASM/TASM, NASM
+- real mode 16-bit: Turbo C, Borland C, Turbo Pascal, Borland Pascal,
+  MASM, TASM, NASM
 - DOS extender: DJGPP, OpenWatcom
 - emulador: compilações modernas para DOS/.COM/.EXE e testes em QEMU, DOSBox-X, PCem e 86Box
 - hardware real: toolchains pequenas, binários previsíveis e rotinas
